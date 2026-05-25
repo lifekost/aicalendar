@@ -2,5 +2,30 @@
   { "date": "2018-06-11", "provider": "OpenAI", "model": "GPT-1" },
   { "date": "2019-02-14", "provider": "OpenAI", "model": "GPT-2" },
   { "date": "2020-05-29", "provider": "OpenAI", "model": "GPT-3" },
-  { "date": "2022-11-30", "provider": "OpenAI", "model": "GPT-3.5 (ChatGPT)" }
+  { "date": "2022-11-30", "provider": "OpenAI", "model": "GPT-3.5 (ChatGPT)" },
+
+  { "date": "2023-03-14", "provider": "OpenAI", "model": "GPT-4" },
+  { "date": "2024-05-13", "provider": "OpenAI", "model": "GPT-4o" },
+  { "date": "2025-02-27", "provider": "OpenAI", "model": "GPT-4.5" },
+  { "date": "2025-04-14", "provider": "OpenAI", "model": "GPT-4.1" },
+
+  { "date": "2024-12-05", "provider": "OpenAI", "model": "o1" },
+  { "date": "2025-01-31", "provider": "OpenAI", "model": "o3-mini" },
+  { "date": "2025-04-16", "provider": "OpenAI", "model": "o3" },
+  { "date": "2025-06-10", "provider": "OpenAI", "model": "o3-pro" },
+  { "date": "2025-04-16", "provider": "OpenAI", "model": "o4-mini" },
+
+  { "date": "2025-08-07", "provider": "OpenAI", "model": "GPT-5" },
+  { "date": "2025-11-12", "provider": "OpenAI", "model": "GPT-5.1" },
+  { "date": "2025-12-11", "provider": "OpenAI", "model": "GPT-5.2" },
+  { "date": "2026-02-05", "provider": "OpenAI", "model": "GPT-5.3-Codex" },
+  { "date": "2026-03-03", "provider": "OpenAI", "model": "GPT-5.3 Instant" },
+  { "date": "2026-03-05", "provider": "OpenAI", "model": "GPT-5.4" },
+  { "date": "2026-04-23", "provider": "OpenAI", "model": "GPT-5.5" },
+
+  { "date": "2026-04-23", "provider": "OpenAI", "model": "GPT-5.5" },
+  { "date": "2026-04-23", "provider": "OpenAI", "model": "GPT-5.5" },
+  { "date": "2026-04-23", "provider": "OpenAI", "model": "GPT-5.5" },
+  { "date": "2026-04-23", "provider": "OpenAI", "model": "GPT-5.5" },
+  { "date": "2026-04-23", "provider": "OpenAI", "model": "GPT-5.5" }
 ]
