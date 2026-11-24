@@ -1,15 +1,10 @@
-import { getDaysInMonth, getFirstDayOfMonth, getMonthName, WEEKDAYS } from '../utils/calendar'
-
-interface Release {
-  provider: string
-  model: string
-}
+import { getDaysInMonth, getFirstDayOfMonth, getMonthName, getProviderColor, WEEKDAYS, type ModelRelease } from '../utils/calendar'
 
 interface Props {
   year: number
   month: number
-  releases: Record<string, Release>
-  onHoverRelease: (info: Release | null) => void
+  releases: Record<string, ModelRelease[]>
+  onHoverReleases: (info: ModelRelease[]) => void
 }
 
 function isToday(year: number, month: number, day: number): boolean {
@@ -21,7 +16,20 @@ function pad(n: number): string {
   return n < 10 ? '0' + n : '' + n
 }
 
-export default function MonthCell({ year, month, releases, onHoverRelease }: Props) {
+function getReleaseBackground(releases: ModelRelease[]): string {
+  const providers = new Set(releases.map(({ provider }) => provider))
+  const colors = Array.from(providers, getProviderColor)
+  if (colors.length === 1) return colors[0]
+
+  const stops = colors.map((color, index) => {
+    const start = (index / colors.length) * 100
+    const end = ((index + 1) / colors.length) * 100
+    return `${color} ${start}% ${end}%`
+  })
+  return `conic-gradient(${stops.join(', ')})`
+}
+
+export default function MonthCell({ year, month, releases, onHoverReleases }: Props) {
   const daysInMonth = getDaysInMonth(year, month)
   const firstDay = getFirstDayOfMonth(year, month)
   const name = getMonthName(month)
@@ -48,14 +56,15 @@ export default function MonthCell({ year, month, releases, onHoverRelease }: Pro
             return <span key={`e-${i}`} className="day empty" />
           }
           const dateKey = `${year}-${pad(month + 1)}-${pad(d)}`
-          const release = releases[dateKey]
-          const classes = `day${isToday(year, month, d) ? ' today' : ''}${release ? ' release' : ''}`
+          const dayReleases = releases[dateKey]
+          const classes = `day${isToday(year, month, d) ? ' today' : ''}${dayReleases ? ' release' : ''}`
           return (
             <span
               key={d}
               className={classes}
-              onMouseEnter={release ? () => onHoverRelease(release) : undefined}
-              onMouseLeave={release ? () => onHoverRelease(null) : undefined}
+              style={dayReleases ? { background: getReleaseBackground(dayReleases) } : undefined}
+              onMouseEnter={dayReleases ? () => onHoverReleases(dayReleases) : undefined}
+              onMouseLeave={dayReleases ? () => onHoverReleases([]) : undefined}
             >
               {d}
             </span>

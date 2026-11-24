@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
 import MonthCell from './MonthCell'
-
-interface Release {
-  provider: string
-  model: string
-}
+import { getProviderColor, type ModelRelease } from '../utils/calendar'
 
 interface Props {
   year: number
@@ -26,16 +22,16 @@ const MONTH_GRID: { month: number; row: number; col: number }[] = [
 ]
 
 export default function RoundCalendar({ year }: Props) {
-  const [releases, setReleases] = useState<Record<string, Release>>({})
-  const [hoveredRelease, setHoveredRelease] = useState<Release | null>(null)
+  const [releases, setReleases] = useState<Record<string, ModelRelease[]>>({})
+  const [hoveredReleases, setHoveredReleases] = useState<ModelRelease[]>([])
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}releases.json`)
       .then((r) => r.json())
-      .then((data: { date: string; provider: string; model: string }[]) => {
-        const map: Record<string, Release> = {}
+      .then((data: ModelRelease[]) => {
+        const map: Record<string, ModelRelease[]> = {}
         for (const item of data) {
-          map[item.date] = { provider: item.provider, model: item.model }
+          (map[item.date] ??= []).push(item)
         }
         setReleases(map)
       })
@@ -53,14 +49,21 @@ export default function RoundCalendar({ year }: Props) {
             year={year}
             month={month}
             releases={releases}
-            onHoverRelease={setHoveredRelease}
+            onHoverReleases={setHoveredReleases}
           />
         </div>
       ))}
       <div className="center-info" style={{ gridRow: 2, gridColumn: '2 / 5' }}>
-        {hoveredRelease && (
-          <span>{hoveredRelease.provider} — {hoveredRelease.model}</span>
-        )}
+        {hoveredReleases.map(({ date, provider, model }) => (
+          <span key={`${date}/${provider}/${model}`}>
+            <span
+              aria-hidden="true"
+              className="provider-swatch"
+              style={{ backgroundColor: getProviderColor(provider) }}
+            />
+            {provider} — {model}
+          </span>
+        ))}
       </div>
     </div>
   )

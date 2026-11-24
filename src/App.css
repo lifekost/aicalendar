@@ -123,32 +123,29 @@ body {
   visibility: hidden;
 }
 
-.day.today {
-  background: #0066cc;
+.day.today,
+.day.release {
   color: #fff;
   font-weight: 600;
   border-radius: 50%;
 }
 
+.day.today {
+  background: #0066cc;
+}
+
 .day.release {
-  position: relative;
   cursor: pointer;
 }
 
-.day.release::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #22c55e;
+.day.today.release {
+  box-shadow: inset 0 0 0 2px #0066cc, inset 0 0 0 3px #fff;
 }
 
 .center-info {
   display: flex;
+  flex-direction: column;
+  gap: 4px;
   align-items: center;
   justify-content: center;
   font-size: 22px;
@@ -157,4 +154,13 @@ body {
   text-align: center;
   padding: 0 16px;
   pointer-events: none;
+}
+
+.provider-swatch {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-inline-end: 0.4em;
+  border-radius: 50%;
+  vertical-align: 0.08em;
 }
